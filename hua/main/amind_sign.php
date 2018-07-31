@@ -1,0 +1,11 @@
+<?php
+session_start();
+$_SESSION['admin_id'];
+$_SESSION['type'];
+$_SESSION['admin_name'];
+unset($_SESSION['admin_id']);
+unset($_SESSION['type']);
+unset($_SESSION['admin_name']);
+//session_destroy();
+header('Location:managelogin.php');
+?>

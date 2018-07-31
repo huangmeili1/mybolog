@@ -1,0 +1,59 @@
+<?php
+session_start();
+include_once("../conn/dataconnection.php");
+	if(@$_SESSION['admin_id']!=''&&@$_SESSION['type']!=''&&@$_SESSION['admin_name']!=''){
+		@$type=$_POST['type'];
+		@$know_id=$_POST['know_id'];
+		if($type=='修改'){
+			@$new_type=$_POST['type_name'];
+			$s=mysql_query("select * from know_type where know_name='$new_type'");
+			@$n=mysql_num_rows($s);
+			if($n>0){
+			$response=array(
+			"ernno"=>3,
+			"errmsg"=>"fail",
+			"data"=>true,
+			);
+			}else{
+				$sql=mysql_query("update know_type set know_name='$new_type' where know_id='$know_id'");
+				$num=mysql_affected_rows();
+				if($num>0){
+				$response=array(
+				"ernno"=>0,
+				"errmsg"=>"success",
+				"data"=>true,
+				);
+			}else{
+				$response=array(
+				"ernno"=>1,
+				"errmsg"=>"fail",
+				"data"=>false,
+				);
+			}
+			}
+		}else{
+			$sql=mysql_query("delete from know_type where know_id='$know_id'");
+					@$num=mysql_affected_rows();
+					if(@$num>0){
+					$response=array(
+					"ernno"=>4,
+					"errmsg"=>"success",
+					"data"=>true,
+					);
+					}else{
+				$response=array(
+				"ernno"=>5,
+				"errmsg"=>"fail",
+				"data"=>false,
+				);
+					}
+		}
+	}else{
+		$response=array(
+			"ernno"=>2,
+			"errmsg"=>"fail",
+			"data"=>false,
+			);
+	}
+	echo json_encode($response);
+?>

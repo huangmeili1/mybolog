@@ -1,0 +1,82 @@
+<?php
+include("../conn/dataconnection.php");
+@session_start();
+$mess=$_POST['mess'];
+if($mess=='登录'){
+$mo=$_POST['mo'];
+$pass=$_POST['pass'];
+$code=$_POST['code'];
+if($_SESSION['code']!=$code){
+	$response=array(
+	'errno'=>1,
+	'errmsg'=>'fail',
+	'data'=>true,
+	);
+}else{
+$sql=mysql_query("select * from user where user_id='$mo' and user_pass='$pass'");
+@$num=mysql_num_rows($sql);
+if($num>0){
+	$a=mysql_fetch_array($sql);
+	$_SESSION['user_id']=$mo;
+	$_SESSION['user_name']=$a['user_name'];
+	$response=array(
+	'errno'=>0,
+	'errmsg'=>'success',
+	'data'=>true,
+	);
+}else{
+	$response=array(
+	'errno'=>2,
+	'errmsg'=>'fail',
+	'data'=>true,
+	);
+}
+}
+}else{
+	$id=$_POST['id'];
+	$names=$_POST['names'];
+	$pass=$_POST['pass'];
+	$realname=$_POST['realname'];
+	$tel=$_POST['tel'];
+	$sex=$_POST['sex'];
+	$d=date("Y-m-d");
+	$ip=$_SERVER["REMOTE_ADDR"];
+	$search ='/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/';
+	 if(!preg_match($search,$tel)){
+	 $response=array(
+	'errno'=>1,
+	'errmsg'=>'fail',
+	'data'=>true,
+	);
+	 }else{
+	 $aa=mysql_query("select * from user where user_id='$id'");
+	 @$r=mysql_num_rows($aa);
+	 if($r>0){
+	$response=array(
+	'errno'=>2,
+	'errmsg'=>'fail',
+	'data'=>true,
+	);
+	 }else{
+	 	$sq=mysql_query("insert into user(user_id,user_name,user_pass,realname,sex,user_tel,user_time,ip) values('$id','$names','$pass','$realname','$sex','$tel','$d','$ip')");
+	    @$nn=mysql_affected_rows();
+	    if($nn>0){
+	    $_SESSION['user_id']=$id;
+		$_SESSION['user_name']=$names;
+		 $response=array(
+		'errno'=>0,
+		'errmsg'=>'success',
+		'data'=>true,
+		);	
+	    }else{
+	    $response=array(
+		'errno'=>3,
+		'errmsg'=>'success',
+		'data'=>true,
+		);	
+	    }
+	 }
+	 }
+}
+echo json_encode($response);
+?>

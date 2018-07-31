@@ -1,0 +1,34 @@
+<?php
+	session_start();
+	if(@$_SESSION['user_id']!=''&&@$_SESSION['user_name']!=''){
+		@$user_id=$_SESSION['user_id'];
+		include("../conn/dataconnection.php");
+		$get_id=$_POST['get_id'];
+		@$u_get_name=$_POST['u_get_name'];
+		@$u_get_tel=$_POST['u_get_tel'];
+		@$u_get_add=$_POST['u_get_add'];
+		@$u_get_post=$_POST['u_get_post'];
+		@$sql=mysql_query("update getinfo set get_name='$u_get_name',get_tel='$u_get_tel',get_add='$u_get_add',get_post='$u_get_post' where get_id='$get_id'");
+		@$sql_num=mysql_affected_rows();
+		if(@$sql_num>0){
+			$response=array(
+			'ernno'=>1,
+			'ermsg'=>'success',
+			'data'=>true
+			);
+		}else{
+			$response=array(
+			'ernno'=>2,
+			'ermsg'=>'fail',
+			'data'=>false
+			);
+		}
+	}else{
+		$response=array(
+		'ernno'=>3,
+		'ermsg'=>'fail',
+		'data'=>false
+		);
+	}
+	echo json_encode($response);
+?>

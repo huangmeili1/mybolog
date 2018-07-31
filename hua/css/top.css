@@ -1,0 +1,60 @@
+#a1{
+		list-style: none;
+		float: left;
+		margin: 0 auto;
+	}
+	#a1 li{
+		 list-style: none outside none;
+		float: left;
+		padding:7px 10px;
+		font-size: 13px;
+		color: black;
+	}
+	body a{
+	 text-decoration: none;
+	}
+	#a1 li{background:linear-gradient(to bottom,gainsboro,black) no-repeat right / 1px 15px;}
+        /*删除第一项和最后一项导航分隔线*/
+	#a1 li:last-child{background:none;}
+	#p li{
+		 list-style: none outside none;
+		float: left;
+		margin-top: 30px;
+		
+	}
+	#u{
+		padding: 0 8px;
+		background:linear-gradient(to bottom,#dd2926,#a82724,#dd2926) no-repeat right / 1px 15px;
+		
+	}
+	#u:last-child{background:none;}
+	
+	.nav1{
+		width: 80%;
+		height: 25%;
+		/*background-color: red;*/
+		margin: 0 auto;
+		text-align: center;
+		border-radius: 10px 10px 10px 10px;
+		color: white;
+	}
+	.nav li{
+		list-style: none;
+		float: left;
+		padding: 0 16px;
+		margin-top: 9px;
+		font-size: 20px;
+		color: white;
+	}
+	.help-block a{
+		color: grey;
+	}
+	.help-block a{
+		color: black;
+		text-decoration: none;
+		
+	}
+	#top{
+		position: fixed;
+		z-index: 200;
+	}

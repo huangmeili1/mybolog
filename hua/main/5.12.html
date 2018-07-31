@@ -1,0 +1,60 @@
+<!doctype html>    
+<html>    
+<head>    
+<meta charset="utf-8">    
+<title>bootstrap 弹出模态框</title>    
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>  
+    $(document).ready(function(){    
+            $("#new").modal("show")    
+    })  
+    </script>   
+</head>    
+<body>    
+
+    
+ <div class="modal fade" id="new">  
+            <div class="modal-dialog">    
+              <div class="modal-content">    
+                <div class="modal-header"> Create a new user </div>    
+                <form class="form-horizontal">    
+                  <div class="modal-body">    
+                    <div class="form-group">    
+                      <label for="inputEmail" class="col-sm-2 control-label">Email</label>    
+                      <div class="col-sm-10">    
+                        <input id="inputEmail" type="text" class="form-control list-inline" placeholder="Email"/>    
+                      </div>    
+                    </div>    
+                    <div class="form-group">    
+                      <label for="inputpwd" class="col-sm-2 control-label">Password</label>    
+                      <div class="col-sm-10">    
+                        <input id="inputpwd" type="text" class="form-control list-inline" placeholder="Password"/>    
+                      </div>    
+                    </div>    
+                    <div class="form-group">    
+                      <label for="inputUsername" class="col-sm-2 control-label">Username</label>    
+                      <div class="col-sm-10">    
+                        <input id="inputUsername" type="text" class="form-control list-inline" placeholder="Username"/>    
+                      </div>    
+                    </div>    
+                    <div class="form-group">    
+                      <label for="inputBirthday" class="col-sm-2 control-label">Birthday</label>    
+                      <div class="col-sm-10">    
+                        <input id="inputBirthday" type="text" class="form-control list-inline" placeholder="Birthday"/>    
+                      </div>    
+                    </div>    
+                  </div>    
+                </form>    
+                <div class="modal-footer">    
+                  <button class="btn btn-success" type="submit">Save</button>    
+                  <button class="btn btn-warning" type="reset">Reset</button>    
+                  <button class="btn btn-danger" data-dismiss="modal">Cancel</button>    
+                </div>    
+              </div>    
+            </div>    
+          </div>    
+    
+</body>    
+</html>    

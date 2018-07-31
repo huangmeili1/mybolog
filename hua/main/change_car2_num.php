@@ -1,0 +1,14 @@
+<?php
+session_start();
+@$good_id=$_POST['good_id'];
+@$num=$_POST['num'];
+@$good=explode("$",$_SESSION['cart']);
+@$nums=explode("*",$_SESSION['num']);
+for($i=0;$i<count($good);$i++){
+	if($good_id==$good[$i]){
+		$nums[$i]=$num;
+	}
+}
+@$nn=implode("*",$nums);
+@$_SESSION['num']=$nn;
+?>

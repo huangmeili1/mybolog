@@ -1,0 +1,50 @@
+<?php
+include("../conn/dataconnection.php");
+session_start();
+$user_id=$_SESSION['user_id'];
+@$get_name=$_POST['get_name'];
+@$get_tel=$_POST['get_tel'];
+@$province=$_POST['province'];
+@$city=$_POST['city'];
+@$area=$_POST['area'];
+@$get_add=$_POST['get_add'];
+@$finally_add=$province.$city.$area.$get_add;
+@$get_post=$_POST['get_post'];
+$sql=mysql_query("select * from getinfo where user_id='$user_id' and get_name='$get_name' and get_tel='$get_tel' and get_add='$finally_add' and get_post='$get_post'");
+@$num=mysql_num_rows($sql);
+if(@$num>0){
+	$response=array(
+	'errno'=>0,
+	'errmsg'=>'fail',
+	'data'=>false,
+	);
+}else{
+$all=mysql_query("select * from getinfo where user_id='$user_id'");
+@$allnum=mysql_num_rows($all);
+if(@$allnum>=20){
+	$response=array(
+	'errno'=>1,
+	'errmsg'=>'fail',
+	'data'=>false,
+	);
+}else{
+$add=mysql_query("insert into getinfo(user_id,get_name,get_tel,get_add,get_post) values('$user_id','$get_name','$get_tel','$finally_add','$get_post')");
+@$addnum=mysql_affected_rows();
+if(@$addnum>0){
+	$response=array(
+	'errno'=>2,
+	'errmsg'=>'success',
+	'data'=>false,
+	);
+}else{
+	$response=array(
+	'errno'=>3,
+	'errmsg'=>'fail',
+	'data'=>false,
+	);
+}
+}
+//											
+	echo json_encode($response);								
+}
+?>

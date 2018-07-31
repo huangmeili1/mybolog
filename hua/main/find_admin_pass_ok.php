@@ -1,0 +1,43 @@
+<?php
+session_start();
+include("../conn/dataconnection.php");
+@$mo=$_POST['mo'];
+@$tel=$_POST['tel'];
+@$code=$_POST['code'];
+@$old_code=$_SESSION['Login_code'];
+if(@$code!=$old_code){
+	$response=array(
+	"errno"=>0,
+	"msg"=>'fail',
+	"data"=>false
+	);
+}else{
+	$sql=mysql_query("select * from admin where admin_tel='$tel'");
+	@$sql_num=mysql_num_rows($sql);
+	if(@$sql_num>0){
+		@$admin=mysql_fetch_array($sql);
+		@$old_amdin_id=$admin['admin_id'];
+		if(@$old_amdin_id!=$mo){
+			$response=array(
+			"errno"=>1,
+			"msg"=>'success',
+			"data"=>ture
+			);
+		}else{
+			$response=array(
+			"errno"=>2,
+			"msg"=>'success',
+			"pass"=>$admin['admin_pass'];
+			"data"=>ture
+			);
+		}
+	}else{
+		$response=array(
+			"errno"=>3,
+			"msg"=>'fail',
+			"data"=>false
+			);
+	}
+}
+echo json_encode($response);
+?>

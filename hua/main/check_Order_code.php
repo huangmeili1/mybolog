@@ -1,0 +1,19 @@
+<?php
+session_start();
+@$oldcode=$_SESSION['Login_code'];
+@$code=$_POST['code'];
+if(@$code!=$oldcode){
+	$responsee=array(
+	"errno"=>0,
+	"msg"=>"fail",
+	"data"=>false
+	);
+}else{
+	$responsee=array(
+	"errno"=>1,
+	"msg"=>"success",
+	"data"=>true
+	);
+}
+echo json_encode($responsee);
+?>

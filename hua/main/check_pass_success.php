@@ -1,0 +1,19 @@
+<?php
+$code=$_POST['code'];
+session_start();
+$old_code=$_SESSION['phone_code'];
+if($old_code==$code){
+	$response=array(
+	"errno"=>0,
+	"success"=>"success",
+	"data"=>true
+	);
+}else{
+	$response=array(
+	"errno"=>1,
+	"success"=>"fail",
+	"data"=>false
+	);
+}
+echo json_encode($response);
+?>

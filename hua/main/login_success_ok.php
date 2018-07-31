@@ -1,0 +1,79 @@
+<?php
+include("../conn/dataconnection.php");
+session_start();
+@$mess=$_POST['mess'];
+if(@$mess=='密码'){
+	@$pass_tel=$_POST['pass_tel'];
+	@$pass=$_POST['pass'];
+	@$sql=mysql_query("select * from user where user_tel='$pass_tel'");
+	@$sql_num=mysql_num_rows($sql);
+	if($sql_num>0){
+		$sql_tel=mysql_query("select * from user where user_tel='$pass_tel' and user_pass='$pass'");
+		@$sql_tel_num=mysql_num_rows($sql_tel);
+		if(@$sql_tel_num>0){
+		@$user=mysql_fetch_array($sql_tel);
+		@$user_id=$user['user_id'];
+		$_SESSION['user_id']=$user_id;
+		if($user['user_name']==''){
+			$_SESSION['user_name']=$user_id;
+		}else{
+			$_SESSION['user_name']=$user['user_name'];
+		}
+		$response=array(
+		"errno"=>1,
+		"success"=>"success",
+		"data"=>true
+		);
+		}else{
+		$response=array(
+		"errno"=>2,
+		"success"=>"fail",
+		"data"=>false
+		);
+		}
+	}else{
+			$response=array(
+			"errno"=>3,
+			"success"=>"fail",
+			"data"=>false
+			);
+	}
+}else{
+	@$tel=$_POST['tel'];
+	@$code=$_POST['code'];
+	@$old_code=$_SESSION['Login_code'];
+	@$sql=mysql_query("select * from user where user_tel='$tel'");
+	@$sql_num=mysql_num_rows($sql);
+	if($sql_num>0){
+//		echo $code;
+		if($code!=$old_code){
+		$response=array(
+		"errno"=>1,
+		"success"=>"success",
+		"data"=>true
+		);
+		}else{
+		$user=mysql_fetch_array($sql);
+		$user_id=$user['user_id'];
+		$_SESSION['user_id']=$user_id;
+		if($user['user_name']==''){
+			$_SESSION['user_name']=$user_id;
+		}else{
+			$_SESSION['user_name']=$user['user_name'];
+		}
+		$response=array(
+		"errno"=>2,
+		"success"=>"fail",
+		"data"=>false
+		);
+		}
+	}else{
+		$response=array(
+			"errno"=>3,
+			"success"=>"fail",
+			"data"=>false
+			);
+	}
+}
+echo json_encode($response);
+?>
